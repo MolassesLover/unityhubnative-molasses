@@ -30,6 +30,9 @@ if (APPLE)
 endif()
 add_executable("${PROJECT_NAME}" WIN32 ${source} "source/wxmac.icns" "source/windows.rc" ${OBJCPP})
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+
+find_package(X11)
 
 #wxwidgets
 set(wxBUILD_SHARED OFF CACHE INTERNAL "")
@@ -43,6 +46,7 @@ add_subdirectory("wxWidgets" EXCLUDE_FROM_ALL)
 target_link_libraries("${PROJECT_NAME}"
     PUBLIC 
 	wx::core
+	${X11_LIBRARIES}
 )
 target_include_directories(${PROJECT_NAME} PUBLIC "fmt/include")
 
